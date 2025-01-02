@@ -7,6 +7,7 @@ import torch.nn as nn
 
 import torchaudio.transforms as TT
 from utils.file import load_config
+from utils.audio import load_audio
 from robpitch.pitch.base.modules.pitch_predictor import ConvPitchPredictor
 
 
@@ -84,6 +85,16 @@ class RobPitch(nn.Module):
             "pitch": torch.argmax(pitch_logits, dim=1),
             "latent": latent,
         }
+
+    def infer(self, filepath: str):
+        wav = load_audio(
+            filepath,
+            sampling_rate=16000,
+            volume_normalize=True
+        )
+        wav = torch.from_numpy(wav).unsqueeze(0).float().to(self.device)
+        outputs = self.forward(wav)
+        return outputs
 
 
 # test

@@ -74,9 +74,8 @@ def load_model(
         raise RuntimeError(
             f"Model {name} not found; available models = {available_models()}")
     model = RobPitch()
-    model.load_from_checkpoint(config_path = os.path.dirname(checkpoint_file) + f'/{name}.yaml'
-                               , ckpt_path = checkpoint_file, device=device)
-
+    model = model.load_from_checkpoint(config_path = os.path.dirname(checkpoint_file) + f'/{name}.yaml',
+                               ckpt_path = checkpoint_file, device=device)
     return model
 
 def available_models() -> List[str]:

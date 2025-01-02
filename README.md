@@ -15,22 +15,13 @@ pip install rob-pitch==0.1.2
 ### Example of Usage
 
 ```
-import torch
-
 import robpitch
-from utils.audio import load_audio
 
 # Init model
 model = robpitch.load_model()
 
-# Load and process the audio
-wav = load_audio(
-    "path/to/audio",
-    sampling_rate=16000,
-    volume_normalize=True
-)
-wav = torch.from_numpy(wav).unsqueeze(0).float().to(model.device)
-outputs = model(wav)
+# process the audio
+outputs = model.infer("path/to/audio")
 pitch = outputs['pitch']
 latent_feature = outputs['latent']
 
