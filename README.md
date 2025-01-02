@@ -15,19 +15,32 @@ pip install rob-pitch==0.1.2
 ### Example of Usage
 
 ```
-import RobPitch
+import torch
 
-ouputs = RobPitch('path/to/audio')
+import robpitch
+from utils.audio import load_audio
 
+# Init model
+model = robpitch.load_model()
+
+# Load and process the audio
+wav = load_audio(
+    "path/to/audio",
+    sampling_rate=16000,
+    volume_normalize=True
+)
+wav = torch.from_numpy(wav).unsqueeze(0).float().to(model.device)
+outputs = model(wav)
 pitch = outputs['pitch']
-feature = outputs['latent']
+latent_feature = outputs['latent']
+
 ```
 
 ## Local Setup
 
 ### Model Download
 
-- Download the model from ![mdoel](https://modelscope.ai/models/pandamq/robpitch-16k)
+- Download the model from ![model](https://modelscope.ai/models/pandamq/robpitch-16k)
 
 ### Example of Local Usage
 
