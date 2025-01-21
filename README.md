@@ -15,19 +15,23 @@ pip install rob-pitch==0.1.2
 ### Example of Usage
 
 ```
-import RobPitch
+import robpitch
 
-ouputs = RobPitch('path/to/audio')
+# Init model
+model = robpitch.load_model()
 
+# process the audio
+outputs = model.infer("path/to/audio")
 pitch = outputs['pitch']
-feature = outputs['latent']
+latent_feature = outputs['latent']
+
 ```
 
 ## Local Setup
 
 ### Model Download
 
-- Download the model from ![mdoel](https://modelscope.ai/models/pandamq/robpitch-16k)
+- Download the model from ![model](https://modelscope.ai/models/pandamq/robpitch-16k)
 
 ### Example of Local Usage
 
